@@ -1,0 +1,207 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body styling */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  /* Header styling */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  header .logo h1 {
+    font-size: 24px;
+  }
+  
+  header .user-profile {
+    display: flex;
+    align-items: center;
+  }
+  
+  header .username {
+    margin-right: 15px;
+    font-size: 18px;
+  }
+  
+  header .profile-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  header .logout-btn {
+    background-color: #e60000;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  header .logout-btn:hover {
+    background-color: #cc0000;
+  }
+  
+  /* Dashboard container */
+  .dashboard-container {
+    margin-top: 80px; /* To avoid header overlap */
+    padding: 20px;
+  }
+  
+  /* Section styling */
+  section {
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    padding: 20px;
+  }
+  
+  section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .book-consignment-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+  }
+  
+  .book-consignment-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .consignment-form {
+    display: none; /* Initially hidden */
+  }
+  
+  .consignment-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .consignment-form textarea,
+  .consignment-form input,
+  .consignment-form select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .consignment-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+  
+  .consignment-form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Past orders and in progress orders */
+  .order {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .delivery {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+  }
+  /* General styles for the consignment options */
+#pickup-options {
+    margin-top: 20px;
+  }
+  
+  #pickup-options h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  #pickup-options button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  #pickup-options button:hover {
+    background-color: #45a049;
+  }
+  /* Styling for the consignment form and options */
+#pickup-options, #payment-options {
+    margin-top: 20px;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Adjust the form display */
+  #consignment-form, #pickup-options, #payment-options {
+    display: none;
+  }
+  
+  
+  

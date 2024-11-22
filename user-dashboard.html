@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard-styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <h1>Delivery Service</h1>
+      </div>
+      <div class="user-profile">
+        <span class="username">John Doe</span>
+        <img
+          src="avatar-3814049_1280.png"
+          alt="Profile Icon"
+          class="profile-icon"
+        />
+        <button class="logout-btn" onclick="window.location.href='index.html'">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard Sections -->
+    <div class="dashboard-container">
+      <section class="book-consignment">
+        <button class="book-consignment-btn" onclick="toggleConsignmentForm()">
+          Book a Consignment
+        </button>
+
+        <div
+          id="consignment-form"
+          class="consignment-form"
+          style="display: none"
+        >
+          <h2>Book a Consignment</h2>
+          <form id="consignment-book-form">
+            <label for="sender-address">Sender's Address:</label>
+            <input
+              type="text"
+              id="sender-address"
+              placeholder="Enter sender's address"
+              required
+            />
+
+            <label for="receiver-address">Receiver's Address:</label>
+            <input
+              type="text"
+              id="receiver-address"
+              placeholder="Enter receiver's address"
+              required
+            />
+
+            <label for="package-size">Package Size:</label>
+            <select id="package-size">
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+
+            <label for="consignment-details">Consignment Details:</label>
+            <textarea
+              id="consignment-details"
+              placeholder="Enter consignment details"
+              required
+            ></textarea>
+
+            <label for="delivery-date">Delivery Date:</label>
+            <input type="date" id="delivery-date" required />
+
+            <button type="submit">Book Consignment</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="pickup-options" style="display: none">
+        <h3>Select Delivery Option</h3>
+        <button onclick="chooseOption('Pickup')">Pickup (Extra Charge)</button>
+        <button onclick="chooseOption('Go Manually')">
+          Go Manually (No Charge)
+        </button>
+      </section>
+
+      <section id="payment-options" style="display: none">
+        <h3>Payment Option</h3>
+        <p id="payment-description"></p>
+        <button onclick="processPayment()">Proceed to Payment</button>
+      </section>
+      <section class="past-orders">
+        <h2>Past Orders</h2>
+        <div class="order">
+          <p>Order #12345 - Delivered on 2024-10-15</p>
+        </div>
+        <div class="order">
+          <p>Order #12346 - Delivered on 2024-10-20</p>
+        </div>
+      </section>
+
+      <section class="in-progress">
+        <h2>In Progress</h2>
+        <div class="order">
+          <p>Order #12347 - In Transit</p>
+          <button class="track-btn">Track</button>
+        </div>
+        <div class="order">
+          <p>Order #12348 - Awaiting Pickup</p>
+          <button class="track-btn">Track</button>
+        </div>
+      </section>
+
+      <section class="deliveries-booked">
+        <h2>Deliveries Booked for You</h2>
+        <div class="delivery">
+          <p>Delivery #12349 - Scheduled for 2024-11-25</p>
+          <label for="time-slot">Time Slot:</label>
+          <input type="time" id="time-slot" />
+          <button class="change-slot-btn">Change Time Slot</button>
+        </div>
+        <div class="delivery">
+          <p>Delivery #12350 - Scheduled for 2024-11-27</p>
+          <label for="time-slot">Time Slot:</label>
+          <input type="time" id="time-slot" />
+          <button class="change-slot-btn">Change Time Slot</button>
+        </div>
+      </section>
+
+      <!-- Other sections like past orders, in-progress, etc. -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Delivery Service</p>
+    </footer>
+
+    <!-- JavaScript for handling the form and options -->
+    <script>
+      // Show or hide the consignment form
+      function toggleConsignmentForm() {
+        const form = document.getElementById("consignment-form");
+        form.style.display =
+          form.style.display === "none" || form.style.display === ""
+            ? "block"
+            : "none";
+      }
+
+      // Handle form submission
+      document
+        .getElementById("consignment-book-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent page reload
+
+          // Hide the consignment form and show the options
+          document.getElementById("consignment-form").style.display = "none";
+          document.getElementById("pickup-options").style.display = "block";
+        });
+
+      // Function to handle Pickup or Go Manually selection
+      function chooseOption(option) {
+        const paymentSection = document.getElementById("payment-options");
+        const paymentDescription = document.getElementById(
+          "payment-description"
+        );
+
+        if (option === "Pickup") {
+          paymentDescription.innerHTML =
+            "You have selected Pickup, which will incur an extra charge of ₹60.";
+        } else if (option === "Go Manually") {
+          paymentDescription.innerHTML =
+            "You have selected Go Manually, with no extra charge.";
+        }
+
+        // Show the payment options
+        document.getElementById("pickup-options").style.display = "none";
+        paymentSection.style.display = "block";
+      }
+
+      // Simulate payment processing
+      function processPayment() {
+        alert("Payment processed successfully! Your consignment is booked.");
+        // Optionally redirect to a confirmation page or perform further actions
+      }
+    </script>
+  </body>
+</html>
