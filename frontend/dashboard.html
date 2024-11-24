@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="css/user-dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="logo">
+          <img src="images/logo.png" alt="Logo" />
+        </div>
+        <nav>
+          <p>Welcome, [User's Name]</p>
+          <a href="index.html"><button class="logout-btn">Logout</button></a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <ul>
+          <li><a href="#">Dashboard Overview</a></li>
+          <li><a href="#">Track Deliveries</a></li>
+          <li><a href="#">Schedule a Delivery</a></li>
+          <li><a href="#">Delivery History</a></li>
+          <li><a href="#">Profile Settings</a></li>
+          <li><a href="#">Help & Support</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <section id="dashboard-overview" class="section">
+          <h2>Dashboard Overview</h2>
+          <p>Get a quick overview of your deliveries and activities.</p>
+          <div class="stats">
+            <div class="stat-box">
+              <h3>5</h3>
+              <p>Active Deliveries</p>
+            </div>
+            <div class="stat-box">
+              <h3>20</h3>
+              <p>Completed Deliveries</p>
+            </div>
+            <div class="stat-box">
+              <h3>3</h3>
+              <p>Pending Requests</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="track-deliveries" class="section">
+          <h2>Track Deliveries</h2>
+          <p>Enter your delivery ID to track your package.</p>
+          <form class="track-form">
+            <input type="text" placeholder="Enter Delivery ID" required />
+            <button type="submit" class="btn primary">Track</button>
+          </form>
+        </section>
+
+        <section id="schedule-delivery" class="section">
+          <h2>Schedule a Delivery</h2>
+          <form class="schedule-form">
+            <label for="recipient">Recipient Name</label>
+            <input type="text" id="recipient" required />
+            <label for="address">Recipient Address</label>
+            <textarea id="address" rows="4" required></textarea>
+            <label for="date">Delivery Date</label>
+            <input type="date" id="date" required />
+            <button type="submit" class="btn primary">Schedule</button>
+          </form>
+        </section>
+
+        <section id="delivery-history" class="section">
+          <h2>Delivery History</h2>
+          <p>View your past delivery records.</p>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Delivery ID</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#12345</td>
+                <td>2024-11-01</td>
+                <td>Delivered</td>
+                <td><a href="#">View</a></td>
+              </tr>
+              <tr>
+                <td>#67890</td>
+                <td>2024-11-10</td>
+                <td>Pending</td>
+                <td><a href="#">View</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="profile-settings" class="section">
+          <h2>Profile Settings</h2>
+          <form class="profile-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" value="John Doe" />
+            <label for="email">Email</label>
+            <input type="email" id="email" value="johndoe@example.com" />
+            <label for="password">Password</label>
+            <input type="password" id="password" value="********" />
+            <button type="submit" class="btn primary">Update</button>
+          </form>
+        </section>
+
+        <section id="help-support" class="section">
+          <h2>Help & Support</h2>
+          <p>Need assistance? Contact our support team.</p>
+          <button class="btn secondary">Contact Support</button>
+        </section>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Delivery Service. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
