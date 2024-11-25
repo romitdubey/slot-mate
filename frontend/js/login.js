@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
           loginMessage.style.color = "green";
           console.log("Token:", data.token);
           localStorage.setItem("token", data.token);
+          localStorage.setItem("user", data.user);
           window.location.href = "dashboard.html";
         } else {
           loginMessage.textContent = data.message || "Login failed!";

@@ -1,6 +1,8 @@
+
 // Function to check if the user is authenticated by verifying JWT token
 function isAuthenticated() {
     const token = localStorage.getItem('token');
+    console.log(token);
     return token && token !== 'null' && token !== '';
 }
 
@@ -20,23 +22,15 @@ function getUserFromToken() {
 // Function to display user info on the dashboard
 function displayUserInfo() {
     const user = getUserFromToken();
-    if (user) {
-        // If user is authenticated, display the username
-        document.getElementById('welcomeMessage').textContent = `Welcome, ${user.username}`;
-    } else {
-        // Redirect to login if token is invalid or absent
+    if (!user) {
         window.location.href = 'index.html';
-    }
+        // If user is authenticated, display the username
+        // document.getElementById('welcomeMessage').textContent = `Welcome, User`;
+    } 
 }
 
-// Function to handle logout
-function logout() {
-    localStorage.removeItem('token'); // Remove the JWT token from local storage
-    window.location.href = 'index.html'; // Redirect to login page
-}
+
 
 // Check if the user is authenticated when the page loads
 displayUserInfo();
 
-// Add logout functionality to the logout button
-document.getElementById('logoutBtn').addEventListener('click', logout);

@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
 
   // Generate JWT
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  res.json({ message: 'Login successful', token });
+  res.json({ message: 'Login successful', token});
 });
 
 // Protected Route (Dashboard)
