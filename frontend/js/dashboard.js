@@ -23,7 +23,7 @@ function getUserFromToken() {
 function displayUserInfo() {
     const user = getUserFromToken();
     if (!user) {
-        window.location.href = 'index.html';
+        window.location.href = 'login.html';
         // If user is authenticated, display the username
         // document.getElementById('welcomeMessage').textContent = `Welcome, User`;
     } 

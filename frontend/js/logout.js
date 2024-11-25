@@ -1,7 +1,9 @@
 // Function to handle logout
 function logout() {
     localStorage.removeItem('token'); // Remove the JWT token from local storage
-    window.location.href = 'index.html'; // Redirect to login page
+    setTimeout(() => {
+        window.location.href = "index.html";
+      }, 2000);
 }
 
 // Add logout functionality to the logout button
