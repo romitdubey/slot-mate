@@ -18,7 +18,7 @@
           <img src="images/logo.png" alt="Logo" />
         </div>
         <nav>
-          <a href="css/index.html" class="btn home-btn">Home</a>
+          <a href="index.html" class="btn home-btn">Home</a>
         </nav>
       </div>
     </header>
@@ -27,7 +27,7 @@
     <section class="register-section">
       <div class="register-container">
         <h2>Create a New Account</h2>
-        <form action="#" method="POST">
+        <form id="signupForm">
           <label for="username">Username</label>
           <input
             type="text"
@@ -67,6 +67,8 @@
           <button type="submit" class="btn primary">Register</button>
         </form>
 
+        <p id="signupMessage" class="message"></p>
+
         <p class="login-link">
           Already have an account? <a href="index.html">Login Here</a>
         </p>
@@ -105,5 +107,6 @@
         <p>&copy; 2024 Delivery Service. All Rights Reserved.</p>
       </div>
     </footer>
+    <script src="js/signup.js"></script>
   </body>
 </html>

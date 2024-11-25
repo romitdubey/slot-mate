@@ -1,26 +1,50 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+// Define the schema
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
-});
+  username: { 
+    type: String, 
+    required: [true, 'Username is required'], 
+    unique: true,
+    trim: true,
+    minlength: [3, 'Username must be at least 3 characters long']
+  },
+  email: { 
+    type: String, 
+    required: [true, 'Email is required'], 
+    unique: true, 
+    match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email address']
+  },
+  password: { 
+    type: String, 
+    required: [true, 'Password is required'], 
+    minlength: [6, 'Password must be at least 6 characters long']
+  }
+}, { timestamps: true }); // Automatically adds createdAt and updatedAt fields
 
-// Password hashing before saving the user to the database
+// Password hashing middleware
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
-  // Hash the password
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
-// Compare password method
+// Password comparison method
 userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  return bcrypt.compare(enteredPassword, this.password);
 };
 
+// Indexes for optimization
+userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ username: 1 }, { unique: true });
+
+// Create and export the model
 const User = mongoose.model('User', userSchema);
 module.exports = User;
