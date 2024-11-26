@@ -2,75 +2,294 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Dashboard</title>
-    <link rel="stylesheet" href="css/user-dashboard.css" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/frontend/css/dashboard.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
-    <script src="js/dashboard.js"></script>
-    
   </head>
   <body>
-    <!-- Header -->
     <header>
-      <div class="container">
-        <div class="logo">
-          <img src="assest\mainlogo.jpg" alt="Logo" />
-        </div>
+      <div class="navbar">
+        <div class="logo">PostKaro</div>
         <nav>
-          <p id="welcomeMessage"></p>
-          <button id="logoutBtn" class="logout-btn">Logout</button>
+          <ul class="menu">
+            <li><a href="#home">Home</a></li>
+            <li class="dropdown">
+              <a href="#company">Company</a>
+              <ul class="dropdown-menu">
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#governance">Governance</a></li>
+                <li><a href="#press-release">Press Release</a></li>
+              </ul>
+            </li>
+            <li><a href="#track">Track</a></li>
+            <li><a href="#support">Support</a></li>
+          </ul>
         </nav>
+
+        <!-- Profile Icon and Dropdown -->
+        <div class="profile">
+          <span class="username">John Doe</span>
+          <span class="profile-icon">&#x1F464;</span>
+          <span class="dropdown-arrow">&#x25BC;</span>
+          <ul class="profile-dropdown">
+            <li><a href="#view-profile">View Profile</a></li>
+            <li><a href="#change-password">Change Password</a></li>
+            <li><a href="#logout">Logout</a></li>
+          </ul>
+        </div>
       </div>
     </header>
-
-    <!-- Dashboard Layout -->
-    <div class="dashboard">
-      <!-- Sidebar -->
-      <aside class="sidebar">
+    <div class="container">
+      <!-- Left-side Navigation -->
+      <nav class="left-nav">
         <ul>
-          <li><a href="#">Dashboard Overview</a></li>
-          <li><a href="#">Track Deliveries</a></li>
-          <li><a href="#">Schedule a Delivery</a></li>
-          <li><a href="#">Delivery History</a></li>
-          <li><a href="#">Profile Settings</a></li>
-          <li><a href="#">Help & Support</a></li>
-        </ul>
-      </aside>
+          <li><a href="#my-orders" id="my-orders-btn">My Orders</a></li>
+          <li>
+            <a href="#profile-settings" id="profile-settings-btn"
+              >Profile Settings</a
+            >
+          </li>
 
-      <!-- Main Content -->
-      <main class="main-content">
-        <!-- Dashboard Overview -->
-        <section id="dashboard-overview" class="section">
-          <h2>Dashboard Overview</h2>
-          <p>Get a quick overview of your deliveries and activities.</p>
-          <div class="stats">
-            <div class="stat-box">
-              <h3>5</h3>
-              <p>Active Deliveries</p>
-            </div>
-            <div class="stat-box">
-              <h3>20</h3>
-              <p>Completed Deliveries</p>
-            </div>
-            <div class="stat-box">
-              <h3>3</h3>
-              <p>Pending Requests</p>
-            </div>
-          </div>
-        </section>
-        <!-- Other sections... -->
-      </main>
+          <li>
+            <a href="#filter-section" id="filter-section-btn">Filter Orders</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- profle setting modal -->
+
+      <div id="profile-settings-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn" onclick="closeProfileSettingsModal()"
+            >&times;</span
+          >
+          <h3>Update Profile</h3>
+          <form id="profile-settings-form">
+            <label for="profile-name">Name:</label>
+            <input
+              type="text"
+              id="profile-name"
+              placeholder="Enter your name"
+              required
+            />
+
+            <label for="profile-username">Username:</label>
+            <input
+              type="text"
+              id="profile-username"
+              placeholder="Enter your username"
+              required
+            />
+
+            <label for="profile-password">Password:</label>
+            <input
+              type="password"
+              id="profile-password"
+              placeholder="Enter your password"
+              required
+            />
+
+            <label for="profile-email">Email:</label>
+            <input
+              type="email"
+              id="profile-email"
+              placeholder="Enter your email"
+              required
+            />
+
+            <label for="profile-phone">Phone Number:</label>
+            <input
+              type="tel"
+              id="profile-phone"
+              placeholder="Enter your phone number"
+              required
+            />
+
+            <label for="profile-address-home">Home Address:</label>
+            <input
+              type="text"
+              id="profile-address-home"
+              placeholder="Enter your home address"
+              required
+            />
+
+            <label for="profile-address-office">Office Address:</label>
+            <input
+              type="text"
+              id="profile-address-office"
+              placeholder="Enter your office address"
+              required
+            />
+
+            <label for="profile-gender">Gender:</label>
+            <select id="profile-gender" required>
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <label for="profile-profession">Profession:</label>
+            <input
+              type="text"
+              id="profile-profession"
+              placeholder="Enter your profession"
+              required
+            />
+
+            <button type="submit" id="save-profile-btn">Save Changes</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Add Consignment Modal -->
+      <div id="add-consignment-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn" onclick="closeAddConsignmentModal()"
+            >&times;</span
+          >
+          <h3>Add New Consignment</h3>
+          <form id="add-consignment-form">
+            <label for="consignment-id">Consignment ID</label>
+            <input
+              type="text"
+              id="consignment-id"
+              placeholder="Enter Consignment ID"
+              required
+            />
+
+            <label for="delivery-date">Delivery Date</label>
+            <input type="date" id="delivery-date" required />
+
+            <label for="time-slot">Time Slot</label>
+            <select id="time-slot" required>
+              <option value="10 AM - 12 PM">10 AM - 12 PM</option>
+              <option value="2 PM - 4 PM">2 PM - 4 PM</option>
+              <option value="5 PM - 7 PM">5 PM - 7 PM</option>
+            </select>
+
+            <label for="location">Delivery Location</label>
+            <input
+              type="text"
+              id="location"
+              placeholder="Enter Delivery Location"
+              required
+            />
+
+            <button type="submit" class="primary-btn">
+              Proceed to Payment
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Payment Modal -->
+      <div id="payment-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn" onclick="closePaymentModal()">&times;</span>
+          <h3>Complete Payment</h3>
+          <p>Amount: ₹500</p>
+          <button class="primary-btn" onclick="completePayment()">
+            Pay Now
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="main-content">
+        <button id="add-consignment-btn">Add Consignment</button>
+
+        <h3>In-Progress Items</h3>
+        <table class="consignment-table">
+          <thead>
+            <tr>
+              <th>Consignment ID</th>
+              <th>Delivery Date</th>
+              <th>Time Slot</th>
+              <th>Creation Date</th>
+              <th>Payment</th>
+              <th>Location</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="in-progress-tbody">
+            <!-- In-progress items will be dynamically added here -->
+          </tbody>
+        </table>
+
+        <h3>Delivered Items</h3>
+        <table class="consignment-table">
+          <thead>
+            <tr>
+              <th>Consignment ID</th>
+              <th>Delivery Date</th>
+              <th>Time Slot</th>
+              <th>Creation Date</th>
+              <th>Payment</th>
+              <th>Location</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="delivered-tbody">
+            <!-- Delivered items will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2024 Delivery Service. All Rights Reserved.</p>
-    </footer>
+    <div id="order-status-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h3>Order Status</h3>
+        <div class="status-tracker">
+          <div class="status-step">Picked Up</div>
+          <div class="status-line"></div>
+          <div class="status-step">In Transit</div>
+          <div class="status-line"></div>
+          <div class="status-step">Delivered</div>
+        </div>
+        <p>Location: <span id="sample-location"></span></p>
+      </div>
+    </div>
 
-    <script src="js/logout.js"></script>
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-left">
+          <h4>Contact Us</h4>
+          <p>123, Delivery Street, City, Country</p>
+          <p>Email: info@deliveryservice.com</p>
+          <p>Phone: +123 456 7890</p>
+        </div>
+        <div class="footer-center">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Track Parcel</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-right">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="footer-bottom">
+        <p>&copy; 2024 Delivery Service. All Rights Reserved.</p>
+      </div>
+    </footer>
+    <script src="/frontend/js/dashboard.js"></script>
   </body>
 </html>
