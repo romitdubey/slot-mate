@@ -89,14 +89,62 @@ function showStatus(orderId) {
   }
 }
 
-// Function to display user info on the dashboard
-function displayUserInfo() {
-    const user = getUserFromToken();
-    if (!user) {
-        window.location.href = 'index.html';
-        // If user is authenticated, display the username
-        // document.getElementById('welcomeMessage').textContent = `Welcome, User`;
-    } 
+function closeModal() {
+  const modal = document.getElementById("order-status-modal");
+  modal.style.display = "none"; // Hide the modal
+}
+
+// Modal Handling for Adding New Consignment
+let currentConsignment = {};
+const addConsignmentModal = document.getElementById("add-consignment-modal");
+const paymentModal = document.getElementById("payment-modal");
+const addConsignmentForm = document.getElementById("add-consignment-form");
+
+document.getElementById("add-consignment-btn").addEventListener("click", () => {
+  addConsignmentModal.style.display = "flex";
+});
+
+function closeAddConsignmentModal() {
+  addConsignmentModal.style.display = "none";
+}
+
+function closePaymentModal() {
+  paymentModal.style.display = "none";
+}
+
+// Handle Form Submission
+addConsignmentForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  // Collect Form Data
+  currentConsignment = {
+    id: document.getElementById("consignment-id").value,
+    deliveryDate: document.getElementById("delivery-date").value,
+    timeSlot: document.getElementById("time-slot").value,
+    location: document.getElementById("location").value,
+    creationDate: new Date().toISOString().split("T")[0],
+    payment: "Paid",
+    status: "Picked Up",
+  };
+
+  // Close form modal and show payment modal
+  closeAddConsignmentModal();
+  paymentModal.style.display = "flex";
+});
+
+// Complete Payment and Add Consignment
+function completePayment() {
+  // Add the consignment to orders array
+  orders.push(currentConsignment);
+
+  // Add the order dynamically to the appropriate table
+  addOrderToTable(currentConsignment);
+
+  // Close payment modal
+  closePaymentModal();
+
+  // Clear form
+  addConsignmentForm.reset();
 }
 
 // Load orders on page load
