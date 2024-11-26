@@ -17,7 +17,7 @@
         <div class="logo">PostKaro</div>
         <nav>
           <ul class="menu">
-            <li><a href="#home">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li class="dropdown">
               <a href="#company">Company</a>
               <ul class="dropdown-menu">
@@ -30,7 +30,7 @@
             <li><a href="#support">Support</a></li>
           </ul>
         </nav>
-        <a href="signup.html" class="register-btn">Register</a>
+        <a href="login.html" class="register-btn">Register or Login</a>
       </div>
     </header>
 
@@ -40,15 +40,14 @@
       <div class="overlay">
         <div class="content">
           <form id="loginForm" class="login-form">
-            <h1>Login to Your Account</h1>
-            <input type="text" placeholder="Email" id="email" required />
-            <input type="password" placeholder="Password" id="password" required />
-            <button type="submit" class="login-btn">Login</button>
+            <h1>Track Your Consignment</h1>
+            <input type="text" placeholder="Consignment ID" id="consignment_id" required />
+            <button type="submit" class="login-btn">Track</button>
           </form>
-          <div class="links">
+          <!-- <div class="links">
             <a href="#forgot-password" class="forgot-password">Forgot Password?</a>
             <a href="#admin-login" class="admin-login">Admin Login</a>
-          </div>
+          </div> -->
           <p id="loginMessage" class="message"></p>
         </div>
       </div>

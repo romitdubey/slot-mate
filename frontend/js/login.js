@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.getElementById("loginForm");
+    const loginForm = document.getElementById("loginSubmit");
     const loginMessage = document.getElementById("loginMessage");
-  
+
     // Form submission handler
-    loginForm.addEventListener("submit", async (e) => {
+    loginForm.addEventListener("click", async (e) => {
       e.preventDefault();
   
       const email = document.getElementById("email").value;
@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("Token:", data.token);
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", data.user);
+          setTimeout(() => {
           window.location.href = "dashboard.html";
+        }, 4000);
         } else {
           loginMessage.textContent = data.message || "Login failed!";
           loginMessage.style.color = "red";
@@ -35,5 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error:", error);
       }
     });
+
   });
   

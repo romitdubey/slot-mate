@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/login_new.css">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <title>Login | SignUP</title>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+          <div class="logo">PostKaro</div>
+          <nav>
+            <ul class="menu">
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#company">Company</a>
+                <ul class="dropdown-menu">
+                  <li><a href="#about-us">About Us</a></li>
+                  <li><a href="#governance">Governance</a></li>
+                  <li><a href="#press-release">Press Release</a></li>
+                </ul>
+              </li>
+              <li><a href="#track">Track</a></li>
+              <li><a href="#support">Support</a></li>
+            </ul>
+          </nav>
+          <!-- <a href="signup.html" class="register-btn">Register</a> -->
+        </div>
+      </header>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form id="signupForm">
+                <h1>Create Account</h1>
+                <!-- <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div> -->
+                <span>Use your email for registeration</span>
+                <input type="text" id="username_r" placeholder="User Name">
+                <input type="email" id="email_r" placeholder="Email">
+                <input type="password" id="password_r" placeholder="Password">
+                <input type="password" id="conf_password_r" placeholder="Confirm Password">
+                <button id="signupSubmit">Sign Up</button>
+                <p id="signupMessage" class="message"></p>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form id="loginForm">
+                <h1>Sign In</h1>
+                <!-- <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div> -->
+                <span>Use your email password</span>
+                <input type="email" id="email" placeholder="Email">
+                <input type="password" id="password" placeholder="Password">
+                <a href="#">Forget Your Password?</a>
+                <button id="loginSubmit">Sign In</button>
+                <p id="loginMessage" class="message"></p>
+              </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello</h1>
+                    <p>Register with your personal details to Book and Track your consignments</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    const container = document.getElementById('container');
+      const registerBtn = document.getElementById('register');
+      const loginBtn = document.getElementById('login');
+      
+      registerBtn.addEventListener('click', () => {
+          container.classList.add("active");
+      });
+      
+      loginBtn.addEventListener('click', () => {
+          container.classList.remove("active");
+      });
+      </script>
+    <script src="js/login.js"></script>
+    <script src="js/signup.js"></script>
+</body>
+
+</html>
