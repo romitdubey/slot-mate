@@ -1,0 +1,15 @@
+requests==2.31.0           # For making HTTP requests to APIs
+Flask==3.0.0               # (Optional) If building a web application
+flask-cors==3.0.10         # (Optional) If handling cross-origin requests in Flask
+osmnx==1.5.0               # For working with OpenStreetMap data and graphs
+geopy==2.3.0               # For geocoding and reverse geocoding
+numpy==1.26.0              # For numerical computations (e.g., Haversine formula)
+pandas==2.1.0              # For data manipulation and analysis
+scikit-learn==1.4.2        # For clustering analysis
+matplotlib==3.8.0          # For visualizations
+networkx==3.1              # For route optimization and graph analysis
+folium==0.14.0             # For interactive map visualizations
+notebook
+tensorflow
+scipy
+gdown
