@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/frontend/css/dashboard.css" />
+    <link rel="stylesheet" href="dashboard.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -43,6 +43,32 @@
           </ul>
         </div>
       </div>
+
+      <!-- Hamburger Menu -->
+      <div class="logo-mobile">POST KARO</div>
+      <div class="hamburger-menu" id="hamburger-menu">
+        <span class="hamburger-icon" onclick="toggleHamburgerMenu()"
+          >&#9776;</span
+        >
+      </div>
+
+      <div class="mobile-nav" id="mobile-nav">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#company">Company</a></li>
+          <li><a href="#track">Track</a></li>
+          <li><a href="#support">Support</a></li>
+          <li>
+            <a href="#profile-settings-mov" id="profile-settings-btn-mobile"
+              >Profile Settings</a
+            >
+          </li>
+          <li><a href="#my-orders" id="my-orders-btn">My Orders</a></li>
+          <li><a href="#view-profile">View Profile</a></li>
+          <li><a href="#change-password">Change Password</a></li>
+          <li><a href="#logout">Logout</a></li>
+        </ul>
+      </div>
     </header>
     <div class="container">
       <!-- Left-side Navigation -->
@@ -63,77 +89,85 @@
 
       <!-- profle setting modal -->
 
-      <div id="profile-settings-modal" class="modal">
-        <div class="modal-content">
+      <div
+        id="profile-settings-modal"
+        class="modal"
+        onclick="closeProfileSettingsModal(event)"
+      >
+        <div class="modal-content" onclick="event.stopPropagation()">
           <span class="close-btn" onclick="closeProfileSettingsModal()"
             >&times;</span
           >
           <h3>Update Profile</h3>
           <form id="profile-settings-form">
-            <label for="profile-name">Name:</label>
-            <input
-              type="text"
-              id="profile-name"
-              placeholder="Enter your name"
-              required
-            />
+            <div class="form-grid">
+              <div>
+                <label for="profile-name">Name:</label>
+                <input
+                  type="text"
+                  id="profile-name"
+                  placeholder="Enter your name"
+                  required
+                />
 
-            <label for="profile-username">Username:</label>
-            <input
-              type="text"
-              id="profile-username"
-              placeholder="Enter your username"
-              required
-            />
+                <label for="profile-username">Username:</label>
+                <input
+                  type="text"
+                  id="profile-username"
+                  placeholder="Enter your username"
+                  required
+                />
 
-            <label for="profile-password">Password:</label>
-            <input
-              type="password"
-              id="profile-password"
-              placeholder="Enter your password"
-              required
-            />
+                <label for="profile-password">Password:</label>
+                <input
+                  type="password"
+                  id="profile-password"
+                  placeholder="Enter your password"
+                  required
+                />
 
-            <label for="profile-email">Email:</label>
-            <input
-              type="email"
-              id="profile-email"
-              placeholder="Enter your email"
-              required
-            />
+                <label for="profile-email">Email:</label>
+                <input
+                  type="email"
+                  id="profile-email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div>
+                <label for="profile-phone">Phone Number:</label>
+                <input
+                  type="tel"
+                  id="profile-phone"
+                  placeholder="Enter your phone number"
+                  required
+                />
 
-            <label for="profile-phone">Phone Number:</label>
-            <input
-              type="tel"
-              id="profile-phone"
-              placeholder="Enter your phone number"
-              required
-            />
+                <label for="profile-address-home">Home Address:</label>
+                <input
+                  type="text"
+                  id="profile-address-home"
+                  placeholder="Enter your home address"
+                  required
+                />
 
-            <label for="profile-address-home">Home Address:</label>
-            <input
-              type="text"
-              id="profile-address-home"
-              placeholder="Enter your home address"
-              required
-            />
+                <label for="profile-address-office">Office Address:</label>
+                <input
+                  type="text"
+                  id="profile-address-office"
+                  placeholder="Enter your office address"
+                  required
+                />
 
-            <label for="profile-address-office">Office Address:</label>
-            <input
-              type="text"
-              id="profile-address-office"
-              placeholder="Enter your office address"
-              required
-            />
-
-            <label for="profile-gender">Gender:</label>
-            <select id="profile-gender" required>
-              <option value="">Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-
+                <label for="profile-gender">Gender:</label>
+                <select id="profile-gender" required>
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
             <label for="profile-profession">Profession:</label>
             <input
               type="text"
@@ -155,12 +189,12 @@
           >
           <h3>Add New Consignment</h3>
           <form id="add-consignment-form">
-            <label for="consignment-id">Consignment ID</label>
+            <label for="consignment-id">Consignment ID:</label>
             <input
               type="text"
               id="consignment-id"
-              placeholder="Enter Consignment ID"
-              required
+              placeholder="Consignment ID"
+              readonly
             />
 
             <label for="delivery-date">Delivery Date</label>
@@ -290,6 +324,6 @@
         <p>&copy; 2024 Delivery Service. All Rights Reserved.</p>
       </div>
     </footer>
-    <script src="/frontend/js/dashboard.js"></script>
+    <script src="dashboard.js"></script>
   </body>
 </html>
