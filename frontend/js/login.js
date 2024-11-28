@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
           loginMessage.style.color = "green";
           console.log("Token:", data.token);
           localStorage.setItem("token", data.token);
-          localStorage.setItem("user", data.user);
+          // localStorage.setItem("user", data.user);
           setTimeout(() => {
           window.location.href = "dashboard.html";
-        }, 4000);
+        }, 2000);
         } else {
           loginMessage.textContent = data.message || "Login failed!";
           loginMessage.style.color = "red";
