@@ -61,4 +61,21 @@ router.get('/dashboard', (req, res) => {
   }
 });
 
+// Route to validate pincode
+router.post('/validate-pincode', async (req, res) => {
+  const { pincode } = req.body;
+
+  if (!pincode) {
+      return res.status(400).json({ error: 'Pincode is required' });
+  }
+
+  try {
+      // Forward the request to the Flask backend
+      const flaskResponse = await axios.post('http://localhost:5000/validate_pincode', { pincode });
+      res.status(flaskResponse.status).json(flaskResponse.data);
+  } catch (error) {
+      res.status(500).json({ error: error.message || 'Internal Server Error' });
+  }
+});
+
 module.exports = router;
