@@ -3,135 +3,238 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Custom Courier Website</title>
+    <title>Responsive Layout</title>
     <link rel="stylesheet" href="css/styles.css" />
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    
   </head>
   <body>
-    <!-- Header Section -->
-    <header>
-      <div class="navbar">
-        <div class="logo">PostKaro</div>
-        <nav>
-          <ul class="menu">
-            <li><a href="index.html">Home</a></li>
-            <li class="dropdown">
-              <a href="#company">Company</a>
-              <ul class="dropdown-menu">
-                <li><a href="#about-us">About Us</a></li>
-                <li><a href="#governance">Governance</a></li>
-                <li><a href="#press-release">Press Release</a></li>
-              </ul>
-            </li>
-            <li><a href="#track">Track</a></li>
-            <li><a href="#support">Support</a></li>
-          </ul>
-        </nav>
-        <a href="login.html" class="register-btn">Register or Login</a>
-      </div>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo"><img src="images/mainlogo.jpg" alt="" /></div>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#about-us">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact-us">Contact</a></li>
+          <li>
+            <a href="login.html"
+              ><button class="login-signup">Login/Signup</button></a
+            >
+          </li>
+        </ul>
+        <button class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-      <img src="assest/img.jpg" alt="Background Image" class="hero-img" />
-      <div class="overlay">
-        <div class="content">
-          <form id="loginForm" class="login-form">
-            <h1>Track Your Consignment</h1>
-            <input type="text" placeholder="Consignment ID" id="consignment_id" required />
-            <button type="submit" class="login-btn">Track</button>
-          </form>
-          <!-- <div class="links">
-            <a href="#forgot-password" class="forgot-password">Forgot Password?</a>
-            <a href="#admin-login" class="admin-login">Admin Login</a>
-          </div> -->
-          <p id="loginMessage" class="message"></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Shipment Info Section -->
-    <section class="shipment-info">
-      <h1>
-        Get your shipment picked up<br />from your
-        <span class="highlight">doorstep</span>
-      </h1>
-      <p>Send your parcel from the comfort of your home or office.</p>
-    </section>
-    <section>
-      <h2>How it <span class="highlight">works</span></h2>
-      <div class="steps-container">
-        <div class="step">
-          <img
-            src="assest/phone_with_hand.jpg"
-            alt="Schedule a free pickup"
-            class="step-img"
-          />
-          <h3><strong>Schedule</strong> a pickup</h3>
-          <p>
-            Get doorstep pickup for parcels from your location. Book couriers
-            for yourself or your loved ones online from our website or app.
-          </p>
-        </div>
-        <div class="step">
-          <img
-            src="assest/parcel.jpg"
-            alt="We arrive at your doorstep"
-            class="step-img"
-          />
-          <h3>We arrive at your <strong>doorstep</strong></h3>
-          <p>
-            Our partners reach your location within 24 hours of placing the
-            order.
-          </p>
-        </div>
-        <div class="step">
-          <img src="assest/truck.jpg" alt="Sit back and relax" class="step-img" />
-          <h3>Sit back and <strong>relax</strong></h3>
-          <p>
-            Your order will be delivered to the chosen destination. Track it
-            from our website or app.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-left">
-          <h4>Contact Us</h4>
-          <p>123, Delivery Street, City, Country</p>
-          <p>Email: info@deliveryservice.com</p>
-          <p>Phone: +123 456 7890</p>
-        </div>
-        <div class="footer-center">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Track Parcel</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-right">
-          <h4>Follow Us</h4>
-          <div class="social-icons">
-            <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+    <section id="hero-section">
+      <div class="hero-image-container">
+        <img src="images/img.jpg" alt="Hero Image" class="hero-image" />
+        <div class="hero-overlay">
+          <div class="hero-left">
+            <h1>
+              Schedule a pickup and have your package collected from your
+              <b style="color: rgb(255, 255, 255)">Doorstep</b>
+            </h1>
+            <p style="font-size: 18px">
+              Delivering excellence right to your doorstep.
+            </p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="hero-right">
+            <h2>Track Your Consignment</h2>
+            <form class="track-form">
+              <input
+                type="text"
+                placeholder="Enter Consignment Number"
+                required
+              />
+              <button type="submit">Track</button>
+            </form>
           </div>
         </div>
       </div>
-      <hr />
-      <div class="footer-bottom">
-        <p>&copy; 2024 Delivery Service. All Rights Reserved.</p>
+    </section>
+
+    <!-- About Us Section -->
+
+    <section id="about-us">
+      <div class="about-container">
+        <div class="about-image">
+          <img src="images/About-us.jpg" alt="About Us" />
+        </div>
+        <div class="about-content">
+          <h2>About Us</h2>
+          <p>
+            We are dedicated to providing world-class delivery services that
+            cater to your needs. Our mission is to ensure that every parcel is
+            delivered with care and precision.
+          </p>
+          <p>
+            Leveraging cutting-edge AI technology, we help you select your
+            <b>preferred time slot</b> for deliveries. Whether it’s at home or
+            the office, our AI-driven system aligns with your schedule to ensure
+            convenience.
+          </p>
+          <p>
+            With a robust network and a commitment to excellence, we strive to
+            make your experience seamless and hassle-free.
+          </p>
+          <button>Learn More</button>
+        </div>
       </div>
-      <script src="js/login.js"></script>
+    </section>
+
+    <!-- services section -->
+
+    <section id="services">
+      <div class="services-container">
+        <h2>Our Services</h2>
+        <p>
+          We offer a wide range of delivery solutions tailored to your needs.
+        </p>
+        <div class="services-grid">
+          <!-- Service 1 -->
+          <div class="service-card">
+            <img src="images/phone_with_hand.jpg" alt="Schedule Pickup" />
+            <h3>Schedule Pickup</h3>
+            <p>
+              Conveniently schedule a pickup at your preferred time and
+              location.
+            </p>
+          </div>
+          <!-- Service 2 -->
+          <div class="service-card">
+            <img src="images/parcel.jpg" alt="Express Delivery" />
+            <h3>Express Delivery</h3>
+            <p>
+              Get your parcels delivered quickly with our priority delivery
+              service.
+            </p>
+          </div>
+          <!-- Service 3 -->
+          <div class="service-card">
+            <img src="images/tracking.png" alt="Real-Time Tracking" />
+            <h3>Real-Time Tracking</h3>
+            <p>Track your shipment in real-time for complete peace of mind.</p>
+          </div>
+          <!-- Service 4 -->
+          <div class="service-card">
+            <img src="images/secure-packaging.jpg" alt="Secure Packaging" />
+            <h3>Secure Packaging</h3>
+            <p>We ensure your items are packed securely for safe transit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- contact section -->
+
+    <section id="contact-us">
+      <div class="contact-container">
+        <h2>Contact Us</h2>
+        <p>Have questions or need assistance? We’re here to help.</p>
+        <div class="contact-content">
+          <!-- Contact Details -->
+          <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <p><strong>Email:</strong> support@deliveryservice.com</p>
+            <p><strong>Phone:</strong> +1 234 567 890</p>
+            <p>
+              <strong>Address:</strong> 123 Delivery Lane, YourCity, YC 45678
+            </p>
+            <p>Follow us on social media:</p>
+            <div class="social-icons">
+              <a style="color: black" href="#"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a style="color: black" href="#"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a style="color: black" href="#"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a style="color: black" href="#"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+          <!-- Contact Form -->
+          <form class="contact-form">
+            <input type="text" placeholder="Your Name" required />
+            <input type="email" placeholder="Your Email" required />
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer section -->
+
+    <footer>
+      <div class="footer-container">
+        <!-- About Us Section -->
+        <div class="footer-section about-us">
+          <h3>About Us</h3>
+          <p>
+            We specialize in providing customized delivery services that fit
+            your schedule. With our AI-powered platform, you can pick the time
+            that works best for you.
+          </p>
+        </div>
+        <!-- Quick Links Section -->
+        <div class="footer-section quick-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="#contact-us">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <!-- Social Links Section -->
+        <div class="footer-section social-links">
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <!-- Newsletter Section -->
+        <div class="footer-section newsletter">
+          <h3>Subscribe to Our Newsletter</h3>
+          <p>Stay updated with the latest delivery services and offers.</p>
+          <form>
+            <input type="email" placeholder="Enter your email" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Your Delivery Service. All Rights Reserved.</p>
+      </div>
     </footer>
+
+    <!-- Scroll-to-Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/styling/script.js"></script>
   </body>
 </html>
