@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const cors = require('cors');
-
+const consignmentRoute = require('./routes/consignmentRoute');
 dotenv.config();
 
 // Initialize app
@@ -16,6 +16,7 @@ connectDB();
 
 // Define routes
 app.use('/api/auth', authRoutes);
+app.use('/api/consignment', consignmentRoute); // Use the consignment route
 
 // Start server
 const PORT = process.env.PORT || 5000;

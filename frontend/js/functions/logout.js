@@ -8,4 +8,4 @@ function logout() {
 
 // Add logout functionality to the logout button
 document.getElementById('logoutBtn').addEventListener('click', logout);
-document.getElementById('logoutBtn1').addEventListener('click', logout);
+// document.getElementById('logoutBtn1').addEventListener('click', logout);

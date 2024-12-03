@@ -96,6 +96,7 @@
                   <th>Item</th>
                   <th>Status</th>
                   <th>Delivery Date</th>
+                  <th>click</th>
                 </tr>
               </thead>
               <tbody>
@@ -104,12 +105,14 @@
                   <td>Electronics</td>
                   <td>In Transit</td>
                   <td>2024-12-10</td>
+                  <td>click</td>
                 </tr>
                 <tr>
                   <td>002</td>
                   <td>Books</td>
                   <td>Shipped</td>
                   <td>2024-12-12</td>
+                  <td>click</td>
                 </tr>
               </tbody>
             </table>
@@ -302,7 +305,7 @@
                   <button class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition" onclick="previousSection('pickupDetails', 'receiverDetails')">
                       Previous
                   </button>
-                  <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" onclick="submitForm()">
+                  <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" id="submitConsignmentForm">
                       Submit
                   </button>
               </div>
@@ -373,5 +376,6 @@
     <script src="js/styling/user_dashboard.js"></script>
     <script src="js/functions/consignment_booking.js"></script>
     <script src="js/functions/logout.js"></script>
+    <script src="js/functions/consigment_sending_to_db.js"></script>
   </body>
 </html>

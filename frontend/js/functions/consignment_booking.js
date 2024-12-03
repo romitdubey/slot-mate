@@ -23,36 +23,7 @@ function previousSection(current, previous) {
 
 
 
-function submitForm() {
-    const loadingOverlay = document.createElement('div');
-    loadingOverlay.classList.add(
-        'fixed',
-        'inset-0',
-        'bg-black',
-        'bg-opacity-50',
-        'flex',
-        'items-center',
-        'justify-center',
-        'z-50'
-    );
-    loadingOverlay.innerHTML = `
-        <div class="text-white text-lg font-semibold">Submitting...</div>
-    `;
-    document.body.appendChild(loadingOverlay);
 
-    setTimeout(() => {
-        // Simulate successful submission
-        loadingOverlay.remove();
-        document.getElementById('consignmentForm').classList.add('hidden');
-        document.getElementById('successMessage').classList.remove('hidden');
-        document.getElementById('consignmentId').textContent = '123456789';
-
-        // Redirect back to the main page after 3 seconds
-        setTimeout(() => {
-            closeForm();
-        }, 3000);
-    }, 3000);
-}
 
 function resetForm() {
     // Reset all input fields and show the first section
