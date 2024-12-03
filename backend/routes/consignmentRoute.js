@@ -78,4 +78,23 @@ router.post('/createConsignment',async (req, res) => {
   }
 });
 
+router.get('/consignments/mobile/:mobile', async (req, res) => {
+  try {
+    const consignments = await Consignment.find({
+      $or: [
+        { 'sender.mobileNumber': req.params.mobile },
+        { 'receiver.mobileNumber': req.params.mobile },
+      ]
+    });
+
+    if (consignments.length === 0) {
+      return res.status(404).json({ message: 'No consignments found for this mobile number' });
+    }
+
+    res.status(200).json({ data: consignments });
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching consignment', error: err.message });
+  }
+});
+
 module.exports = router;
