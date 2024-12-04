@@ -44,6 +44,7 @@ const consignmentSchema = new mongoose.Schema({
   consignmentId: { type: String, default: null },
   postmanId: { type: String, default: null },
   postOfficeId: { type: String, default: null },
+  deliverystatus: { type: String, default: null },
 });
 
 const Consignment = mongoose.model('Consignment', consignmentSchema);

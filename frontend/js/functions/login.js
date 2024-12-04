@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (response.ok) {
               console.log("Login successful! Token:", data.token);
               localStorage.setItem("token", data.token);
+              localStorage.setItem("phoneNumber", data.phoneNumber);
               setTimeout(() => {
                   window.location.href = "dashboard.html";
               }, 2000);

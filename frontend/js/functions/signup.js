@@ -16,11 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
   signupForm.addEventListener("click", async (e) => {
       e.preventDefault();
 
-      const username = document.getElementById("new-username").value;
+      const phoneNumber = document.getElementById("new-username").value;
       const email = document.getElementById("new-email").value;
       const password = document.getElementById("new-password").value;
       const confirmPassword = document.getElementById("confirm-password").value;
-
       // Clear any previous messages
       signupMessage.textContent = '';
 
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const response = await fetch("http://localhost:5000/api/auth/signup", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ username, email, password }),
+              body: JSON.stringify({ phoneNumber, email, password }),
           });
 
           const data = await response.json();

@@ -251,3 +251,5 @@ function closeProfileSettingsModal(event) {
     modal.style.display = "none";
   }
 }
+
+
