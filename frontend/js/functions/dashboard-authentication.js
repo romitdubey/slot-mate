@@ -1,4 +1,5 @@
 // Function to check if the user is authenticated by verifying JWT token
+
 function isAuthenticated() {
   const token = localStorage.getItem('token');
   console.log(token);
