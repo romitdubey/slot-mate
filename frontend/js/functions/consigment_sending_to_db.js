@@ -25,13 +25,13 @@ function submitForm() {
 
       // Redirect back to the main page after 3 seconds
       setTimeout(() => {
-        window.location.reload();
-      }, 5000);
+          closeForm();
+      }, 10000);
   }, 3000);
 }
 document.getElementById('submitConsignmentForm').addEventListener('click', async (e) => {
     e.preventDefault();
-    
+    submitForm();
     // Get the values from the form
     const senderFullName = document.getElementById('senderName').value;
     const senderMobileNumber = document.getElementById('senderPhone').value;
@@ -80,13 +80,12 @@ document.getElementById('submitConsignmentForm').addEventListener('click', async
       });
   
       const data = await response.json();
-      submitForm();
-      // if (response.ok) {
-      //   alert(data.message); // Success
-        
-      // } else {
-      //   alert('Error: ' + data.message); // Error
-      // }
+  
+      if (response.ok) {
+        alert(data.message); // Success
+      } else {
+        alert('Error: ' + data.message); // Error
+      }
     } catch (error) {
       console.error('Error:', error);
       alert('An error occurred. Please try again.');
