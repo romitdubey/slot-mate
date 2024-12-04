@@ -65,7 +65,14 @@ router.post('/createConsignment',async (req, res) => {
       deliveryTime,
       deliveryCost,
       paymentMethod,
-      deliverystatus
+      deliverystatus:{
+        "ready_for_pickup": 1,
+        "picked_up": 0,
+        "in_transit": 0,
+        "reached_to_nearest_hub": 0,
+        "out_for_delivery": 0,
+        "delivered": 0
+      }
         });
 
     // Save consignment to the database

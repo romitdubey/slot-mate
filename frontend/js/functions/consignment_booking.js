@@ -65,7 +65,7 @@ function validatePincode(type) {
     .then(response => response.json())
     .then(data => {
         // Hide loading overlay
-        document.getElementById("loadingOverlay").classList.add("hidden");
+        
 
         if (data.valid) {
             // Pincode is valid, now fetch pincode details
@@ -125,6 +125,7 @@ function fetchPincodeDetails(pincode, type) {
                 stateInput.value = selectedPostOffice.State;
                 districtInput.value = selectedPostOffice.District;
             });
+            document.getElementById("loadingOverlay").classList.add("hidden");
 
         } else {
             alert("No post office details found for this pincode.");

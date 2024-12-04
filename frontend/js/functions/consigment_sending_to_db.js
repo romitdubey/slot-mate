@@ -67,7 +67,15 @@ document.getElementById('submitConsignmentForm').addEventListener('click', async
       receiverState,
       receiverDistrict,
       pickupDate,
-      deliveryCost
+      deliveryCost,
+      deliveryStatus:{
+        "ready_for_pickup": 1,
+        "picked_up": 0,
+        "in_transit": 0,
+        "reached_to_nearest_hub": 0,
+        "out_for_delivery": 0,
+        "delivered": 0
+      }
     };
     console.log(consignmentData);
     try {

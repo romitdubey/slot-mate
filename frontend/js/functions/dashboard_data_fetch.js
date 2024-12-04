@@ -24,7 +24,19 @@ if (phoneNumber) {
                 <td>${order._id}</td>
                 <td>${order.sender.pincode}</td>
                 <td>${order.receiver.pincode}</td>
-                <td>${order.deliveryStatus === 1 ? 'Delivered' : 'In Transit'}</td>
+                <td>
+  ${(() => {
+    const statusMap = order.deliveryStatus;
+    if (order.deliveryStatus.delivered === 1) return 'Delivered';
+    if (order.deliveryStatus.out_for_delivery === 1) return 'Out for Delivery';
+    if (order.deliveryStatus.reached_to_nearest_hub === 1) return 'Reached Nearest Hub';
+    if (order.deliveryStatus.in_transit === 1) return 'In Transit';
+    if (order.deliveryStatus.picked_up === 1) return 'Picked Up';
+    if (order.deliveryStatus.ready_for_pickup === 1) return 'Ready for Pickup';
+    return 'Pending';
+  })()}
+</td>
+  
                 <td>${new Date(order.estimatedDeliveryDate).toLocaleDateString()}</td>
                 <td><button class="view-btn" data-order='${JSON.stringify(order)}'>View Details</button></td>
             `;
@@ -85,7 +97,16 @@ document.querySelectorAll('.view-btn').forEach(button => {
             </div>
             <div class="flex justify-between">
                 <span class="font-semibold">Delivery Status:</span>
-                <span>${order.deliverystatus == 1 ? 'Delivered' : 'In-transist'}</span>
+                <span>${(() => {
+                    const statusMap = order.deliveryStatus;
+                    if (order.deliveryStatus.delivered === 1) return 'Delivered';
+                    if (order.deliveryStatus.out_for_delivery === 1) return 'Out for Delivery';
+                    if (order.deliveryStatus.reached_to_nearest_hub === 1) return 'Reached Nearest Hub';
+                    if (order.deliveryStatus.in_transit === 1) return 'In Transit';
+                    if (order.deliveryStatus.picked_up === 1) return 'Picked Up';
+                    if (order.deliveryStatus.ready_for_pickup === 1) return 'Ready for Pickup';
+                    return 'Pending';
+                  })()}</span>
             </div>
         `;
 
