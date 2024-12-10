@@ -9,7 +9,86 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    
+    <style>
+      /* Basic styling */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        /* display: flex; */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f3f4f6;
+      }
+      .track-form {
+        text-align: center;
+      }
+      .track-form input {
+        padding: 10px;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+      .track-form button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .track-form button:hover {
+        background-color: #0056b3;
+      }
+      /* Popup styling */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 500px;
+        position: relative;
+      }
+      .popup-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      .popup-content table th,
+      .popup-content table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      .popup-content table th {
+        background-color: #f2f2f2;
+      }
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .close-btn:hover {
+        background: #cc0000;
+      }
+    </style>
   </head>
   <body>
     <!-- Header -->
@@ -66,6 +145,62 @@
         </div>
       </div>
     </section>
+
+    <div class="popup-overlay" id="popupOverlay">
+      <div class="popup-content">
+        <button class="close-btn" id="closeBtn">Close</button>
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Consigment Id</td>
+              <td>12345</td>
+            </tr>
+            <tr>
+              <td>Pickup Date</td>
+              <td>2024-12-01</td>
+            </tr>
+            <tr>
+              <td>In Transit</td>
+              <td>Package is at the central hub.</td>
+            </tr>
+            <tr>
+              <td>Delivered</td>
+              <td>Delivered on 2024-12-05</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const trackForm = document.querySelector(".track-form");
+      const popupOverlay = document.getElementById("popupOverlay");
+      const closeBtn = document.getElementById("closeBtn");
+
+      // Show popup on form submit
+      trackForm.addEventListener("submit", (e) => {
+        e.preventDefault(); // Prevent form submission
+        popupOverlay.style.display = "flex"; // Show popup
+      });
+
+      // Close popup when close button is clicked
+      closeBtn.addEventListener("click", () => {
+        popupOverlay.style.display = "none";
+      });
+
+      // Close popup when clicked outside the popup content
+      popupOverlay.addEventListener("click", (e) => {
+        if (e.target === popupOverlay) {
+          popupOverlay.style.display = "none";
+        }
+      });
+    </script>
 
     <!-- About Us Section -->
 
