@@ -132,12 +132,12 @@ router.get('/consignments/mobile/:mobile', async (req, res) => {
 
     // Loop through all consignments and categorize them
     consignments.forEach(consignment => {
-      if (consignment.deliverystatus === "1") {
+      if (consignment.deliveryStatus.delivered === "1") {
         pastOrders.push(consignment);
       }
       
       // Check if the consignment is for the user (either sender or receiver)
-      else if (consignment.sender.mobileNumber === phoneNumber && consignment.deliverystatus !== "1") {
+      else if (consignment.sender.mobileNumber === phoneNumber && consignment.deliveryStatus.delivered !== "1") {
         // Add to current orders if the sender's phone matches and not delivered
         currentOrders.push(consignment);
       } else if (consignment.receiver.mobileNumber === phoneNumber) {

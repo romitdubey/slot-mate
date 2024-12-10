@@ -44,17 +44,13 @@ const consignmentSchema = new mongoose.Schema({
   consignmentId: { type: String, default: null },
   postmanId: { type: String, default: null },
   postOfficeId: { type: String, default: null },
-  deliveryStatus: { 
-    type: Map, 
-    of: Number, 
-    default: { 
-      "ready_for_pickup": 1,
-      "picked_up": 0,
-      "in_transit": 0,
-      "reached_to_nearest_hub": 0,
-      "out_for_delivery": 0,
-      "delivered": 0 
-    } 
+  deliveryStatus: {  
+      "ready_for_pickup": { type: Number, default:1 },
+      "picked_up": { type: Number, default: 0 },
+      "in_transit": { type: Number, default: 0 },
+      "reached_to_nearest_hub": { type: Number, default: 0 },
+      "out_for_delivery": { type: Number, default: 0 },
+      "delivered": { type: Number, default: 0 } 
   }
 });
 
