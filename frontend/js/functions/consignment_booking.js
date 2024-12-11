@@ -4,11 +4,22 @@ function openForm() {
     document.getElementById('consignmentForm').classList.remove('hidden');
 }
 
+function resetForm() {
+    // Reset the form inputs and hide success message
+    document.getElementById('consignmentForm').reset();
+    document.getElementById('successMessage').classList.add('hidden');
+}
 function closeForm() {
     document.getElementById('consignmentForm').classList.add('hidden');
     document.getElementById('successMessage').classList.add('hidden');
 }
 
+function reset(){
+    const dropdown = document.getElementById('timeSlotDropdown');
+    dropdown.disabled = false;
+    const recommendedButton = document.getElementById('recommendedButton');
+    recommendedButton.disabled = false;
+}
 function nextSection(current, next) {
     // Hide the current section and show the next section
     document.getElementById(current).classList.add('hidden');
@@ -21,8 +32,71 @@ function previousSection(current, previous) {
     document.getElementById(previous).classList.remove('hidden');
 }
 
+    function handleRecommendedSelection() {
+      const dropdown = document.getElementById('timeSlotDropdown');
+      dropdown.disabled = true;
+      document.getElementById("selectedslot").innerText = document.getElementById('recommendedButton').textContent.trim();
+    }
+
+    function handleDropdownChange() {
+      const recommendedButton = document.getElementById('recommendedButton');
+      recommendedButton.disabled = true;
+      const dropdown = document.getElementById('timeSlotDropdown');
+      document.getElementById("selectedslot").innerText = dropdown.value;
+    }
 
 
+  function calculateDeliveryDays() {
+    const distance = localStorage.getItem('distance');
+    let days;
+
+    if (distance) {
+      const dist = parseFloat(distance);
+        console.log(dist);  
+      if (dist <= 25) {
+        days = 1;
+      } else if (dist > 25 && dist <= 150) {
+        days = 2;
+      } else if (dist > 150 && dist <= 300) {
+        days = 3;
+      } else {
+        days = 5;
+      }
+
+      return days;
+    } else {
+      alert('Distance is not available in local storage.');
+      return null;
+    }
+  }
+
+  function populatePickupDates() {
+    nextSection('receiverDetails', 'pickupDetails')
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    const dayAfterTomorrow = new Date();
+    dayAfterTomorrow.setDate(today.getDate() + 2);
+
+    const pickupDateSelect = document.getElementById('pickupDate');
+    pickupDateSelect.innerHTML = `
+      <option value="${tomorrow.toISOString().split('T')[0]}">Tomorrow (${tomorrow.toDateString()})</option>
+      <option value="${dayAfterTomorrow.toISOString().split('T')[0]}">Day After Tomorrow (${dayAfterTomorrow.toDateString()})</option>
+    `;
+  }
+
+  function showDeliveryDate() {
+    calculateDistance(document.getElementById("senderPincode").value.trim(), document.getElementById("receiverPincode").value.trim());
+    nextSection('pickupDetails', 'recommendedSlot')
+    const daysToDeliver = calculateDeliveryDays();
+    if (daysToDeliver !== null) {
+      const pickupDateValue = document.getElementById('pickupDate').value;
+      const pickupDate = new Date(pickupDateValue);
+      const deliveryDate = new Date(pickupDate);
+      deliveryDate.setDate(pickupDate.getDate() + daysToDeliver);
+      document.getElementById('DeliveryDatet').placeholder = deliveryDate.toDateString();
+    }
+  }
 
 
 function resetForm() {
@@ -53,6 +127,7 @@ function validatePincode(type) {
 
     // Show loading overlay while fetching data
     document.getElementById("loadingOverlay").classList.remove("hidden");
+    document.getElementById("loadingOverlayr").classList.remove("hidden");
 
     // Validate Pincode API call
     fetch("http://localhost:3000/validate_pincode", {
@@ -72,12 +147,16 @@ function validatePincode(type) {
             fetchPincodeDetails(pincode, type);
         } else {
             // Pincode is invalid
+            document.getElementById("loadingOverlay").classList.add("hidden");
+            document.getElementById("loadingOverlayr").classList.add("hidden");
             alert("Invalid pincode entered. Please try again.");
+
         }
     })
     .catch(error => {
         // Hide loading overlay and show error message
         document.getElementById("loadingOverlay").classList.add("hidden");
+        document.getElementById("loadingOverlayr").classList.add("hidden");
         alert("Error validating pincode. Please try again later.");
         console.error(error);
     });
@@ -126,6 +205,7 @@ function fetchPincodeDetails(pincode, type) {
                 districtInput.value = selectedPostOffice.District;
             });
             document.getElementById("loadingOverlay").classList.add("hidden");
+            document.getElementById("loadingOverlayr").classList.add("hidden");
 
         } else {
             alert("No post office details found for this pincode.");
@@ -134,5 +214,35 @@ function fetchPincodeDetails(pincode, type) {
     .catch(error => {
         alert("Error fetching pincode details. Please try again later.");
         console.error(error);
+    });
+}
+
+function calculateDistance(pincode1, pincode2) {
+    // Call the Flask backend
+    fetch("http://localhost:3000/calculate_distance", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ pincode1, pincode2 })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Failed to calculate distance. Please try again later.");
+        }
+    })
+    .then(data => {
+        try {
+            console.log(data)
+            localStorage.setItem("distance", data.distance);
+        } 
+        catch (err) {
+           console.log(data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
     });
 }

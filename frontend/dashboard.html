@@ -247,6 +247,9 @@
               </button>
           </div>
       </div>
+      <div id="loadingOverlayr" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
       <div>
           <label for="receiverPostOffice" class="block text-gray-600">Post Office</label>
           <select id="receiverPostOffice" class="w-full border rounded-lg px-3 py-2"></select>
@@ -266,7 +269,7 @@
       <button class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition" onclick="previousSection('receiverDetails', 'senderDetails')">
           Previous
       </button>
-      <button class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition" onclick="nextSection('receiverDetails', 'pickupDetails')">
+      <button class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition" onclick="populatePickupDates()">
           Next
       </button>
   </div>
@@ -275,28 +278,85 @@
   
           <!-- Pickup Details Section -->
           <div id="pickupDetails" class="form-section space-y-4 hidden">
-              <h2 class="text-xl font-bold text-gray-800">Pickup Details</h2>
-              <div>
-                  <label for="pickupDate" class="block text-gray-600">Pickup Date</label>
-                  <select id="pickupDate" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
-                      <option value="today">Today</option>
-                      <option value="tomorrow">Tomorrow</option>
-                  </select>
+            <h2 class="text-xl font-bold text-gray-800">Pickup Details</h2>
+            <div>
+                <label for="pickupDate" class="block text-gray-600">Pickup Date</label>
+                <select id="pickupDate" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    <!-- Options populated by JavaScript -->
+                </select>
+            </div>
+            <div>
+                <label for="priceDetails" class="block text-gray-600">Price Details</label>
+                <input type="text" id="priceDetails" disabled class="w-full border rounded-lg px-3 py-2 bg-gray-200" placeholder="Rs. 100">
+            </div>
+            <p type="text", id="priceDetails" class="hidden">
+              100
+            </p>
+            <div class="flex justify-between">
+                <button class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition" onclick="previousSection('pickupDetails', 'receiverDetails')">
+                    Previous
+                </button>
+                <button 
+                  type="button" 
+                  class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" 
+                  onclick="showDeliveryDate()">
+                  Next
+                </button>
+            </div>
+        </div>
+          
+          <!-- Ai Slot prediction and asking sender to choose preffered time slot -->
+          <div id="recommendedSlot" class="form-section space-y-4 hidden">
+            <h2 class="text-xl font-bold text-gray-800">Date and Time Slot Details</h2>
+            <div>
+                
+                <div>
+                  <label for="DeliveryDate" class="block text-gray-600">Expected Delivery Date: </label>
+                  <input type="text" id="DeliveryDatet" disabled class="w-full border rounded-lg px-3 py-2 bg-gray-200" placeholder="">
+                  <p type="text", id="deliverydatett" class="hidden">
+              
+                  </p>
               </div>
               <div>
-                  <label for="priceDetails" class="block text-gray-600">Price Details</label>
-                  <input type="text" id="priceDetails" disabled class="w-full border rounded-lg px-3 py-2 bg-gray-200" placeholder="Price details (auto-filled)">
+                <label for="recommended_Slot" class="block text-gray-700 font-medium mb-2">Recommended Time Slot:</label>
+                <button 
+                type="button" 
+                id="recommendedButton" 
+                onclick="handleRecommendedSelection()" 
+                class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-300 focus:outline-none">
+                12:00 PM - 3:00 PM
+              </button>
               </div>
-              <div class="flex justify-between">
-                  <button class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition" onclick="previousSection('pickupDetails', 'receiverDetails')">
-                      Previous
-                  </button>
-                  <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" id="submitConsignmentForm">
-                      Submit
-                  </button>
-              </div>
-          </div>
-  
+            
+            </div>
+            <label for="timeSlotDropdown" class="block text-gray-700 font-medium mb-2">Want to change the Time slot?, Select a Time Slot:</label>
+            <select 
+              id="timeSlotDropdown" 
+              name="timeSlot" 
+              onchange="handleDropdownChange()" 
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:outline-none">
+              <option value="">-- Select a Time Slot --</option>
+              <option value="9am-12pm">9:00 AM - 12:00 PM</option>
+              <option value="12pm-3pm">12:00 PM - 3:00 PM</option>
+              <option value="3pm-6pm">3:00 PM - 6:00 PM</option>
+              <option value="6pm-9pm">6:00 PM - 9:00 PM</option>
+            </select>
+            <p type="text", id="selectedslot" class="hidden">
+              
+              </p>
+            <button id="resettimeslot" class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" onclick="reset()">
+              Reset
+          </button>
+            <div class="flex justify-between">
+                <button class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition" onclick="previousSection('recommendedSlot', 'pickupDetails')">
+                    Previous
+                </button>
+                <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" id="submitConsignmentForm">
+                    Next
+                </button>
+            </div>
+        </div>
+
           <!-- Success Message -->
           <div id="successMessage" class="hidden">
               <h2 class="text-2xl font-bold text-green-600 text-center">🎉 Consignment Booked!</h2>
