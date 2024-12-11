@@ -80,7 +80,7 @@ function previousSection(current, previous) {
 
     const pickupDateSelect = document.getElementById('pickupDate');
     pickupDateSelect.innerHTML = `
-      <option value="${tomorrow.toISOString().split('T')[0]}">Tomorrow (${tomorrow.toDateString()})</option>
+      <option vasubmitConsignmentFormlue="${tomorrow.toISOString().split('T')[0]}">Tomorrow (${tomorrow.toDateString()})</option>
       <option value="${dayAfterTomorrow.toISOString().split('T')[0]}">Day After Tomorrow (${dayAfterTomorrow.toDateString()})</option>
     `;
   }
@@ -94,7 +94,7 @@ function previousSection(current, previous) {
       const pickupDate = new Date(pickupDateValue);
       const deliveryDate = new Date(pickupDate);
       deliveryDate.setDate(pickupDate.getDate() + daysToDeliver);
-      document.getElementById('DeliveryDatet').placeholder = deliveryDate.toDateString();
+      document.getElementById('DeliveryDatet').value = deliveryDate.toDateString();
     }
   }
 

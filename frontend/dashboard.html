@@ -287,11 +287,9 @@
             </div>
             <div>
                 <label for="priceDetails" class="block text-gray-600">Price Details</label>
-                <input type="text" id="priceDetails" disabled class="w-full border rounded-lg px-3 py-2 bg-gray-200" placeholder="Rs. 100">
+                <input type="text" id="priceDetails" disabled class="w-full border rounded-lg px-3 py-2 bg-gray-200" placeholder="100">
             </div>
-            <p type="text", id="priceDetails" class="hidden">
-              100
-            </p>
+    
             <div class="flex justify-between">
                 <button class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition" onclick="previousSection('pickupDetails', 'receiverDetails')">
                     Previous
@@ -351,7 +349,7 @@
                 <button class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition" onclick="previousSection('recommendedSlot', 'pickupDetails')">
                     Previous
                 </button>
-                <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" id="submitConsignmentForm">
+                <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" id="submitConsignmentForm" onclick="nextSection('recommended_Slot','successMessage')">
                     Next
                 </button>
             </div>

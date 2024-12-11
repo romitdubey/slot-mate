@@ -21,7 +21,7 @@ function submitForm() {
       loadingOverlay.remove();
       //document.getElementById('consignmentForm').classList.add('hidden');
       document.getElementById('successMessage').classList.remove('hidden');
-      document.getElementById('consignmentId').textContent = '123456789';
+      
 
       // Redirect back to the main page after 3 seconds
       setTimeout(() => {
@@ -48,9 +48,9 @@ document.getElementById('submitConsignmentForm').addEventListener('click', async
     const receiverState = document.getElementById('receiverState').value;
     const receiverDistrict = document.getElementById('receiverDistrict').value;
     const pickupDate = document.getElementById('pickupDate').value;
-    const deliveryCost = document.getElementById('priceDetails').innerText.trim();
-    const estimatedDeliveryDate = document.getElementById('deliverydatett').innerHTML.trim();
-    const deliveryTime = document.getElementById('selectedslot').innerText.trim();
+    const deliveryCost = document.getElementById('priceDetails').value;
+    const estimatedDeliveryDate = document.getElementById('DeliveryDatet').value;
+    const deliveryTime = document.getElementById('selectedslot').value;
   
     // Prepare the data to send to the backend
     const consignmentData = {
@@ -94,7 +94,7 @@ document.getElementById('submitConsignmentForm').addEventListener('click', async
       const data = await response.json();
   
       if (response.ok) {
-        alert(data.message); // Success
+        location.reload() // Success
       } else {
         alert('Error: ' + data.message); // Error
       }
