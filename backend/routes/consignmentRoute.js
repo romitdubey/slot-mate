@@ -132,7 +132,7 @@ router.get('/consignments/mobile/:mobile', async (req, res) => {
 
     // Loop through all consignments and categorize them
     consignments.forEach(consignment => {
-      if (consignment.deliveryStatus.delivered === "1") {
+      if (consignment.deliveryStatus.delivered === 1) {
         pastOrders.push(consignment);
       }
       

@@ -48,9 +48,9 @@ document.getElementById('submitConsignmentForm').addEventListener('click', async
     const receiverState = document.getElementById('receiverState').value;
     const receiverDistrict = document.getElementById('receiverDistrict').value;
     const pickupDate = document.getElementById('pickupDate').value;
-    const deliveryCost = document.getElementById('priceDetails').value;
+    const deliveryCost = document.getElementById('priceDetails').placeholder;
     const estimatedDeliveryDate = document.getElementById('DeliveryDatet').value;
-    const deliveryTime = document.getElementById('selectedslot').value;
+    const deliveryTime = document.getElementById('selectedslot').innerText;
   
     // Prepare the data to send to the backend
     const consignmentData = {

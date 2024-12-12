@@ -24,6 +24,7 @@ function nextSection(current, next) {
     // Hide the current section and show the next section
     document.getElementById(current).classList.add('hidden');
     document.getElementById(next).classList.remove('hidden');
+
 }
 
 function previousSection(current, previous) {
@@ -62,7 +63,7 @@ function previousSection(current, previous) {
       } else {
         days = 5;
       }
-
+      console.log(days);
       return days;
     } else {
       alert('Distance is not available in local storage.');
@@ -80,7 +81,7 @@ function previousSection(current, previous) {
 
     const pickupDateSelect = document.getElementById('pickupDate');
     pickupDateSelect.innerHTML = `
-      <option vasubmitConsignmentFormlue="${tomorrow.toISOString().split('T')[0]}">Tomorrow (${tomorrow.toDateString()})</option>
+      <option value="${tomorrow.toISOString().split('T')[0]}">Tomorrow (${tomorrow.toDateString()})</option>
       <option value="${dayAfterTomorrow.toISOString().split('T')[0]}">Day After Tomorrow (${dayAfterTomorrow.toDateString()})</option>
     `;
   }
@@ -89,11 +90,15 @@ function previousSection(current, previous) {
     calculateDistance(document.getElementById("senderPincode").value.trim(), document.getElementById("receiverPincode").value.trim());
     nextSection('pickupDetails', 'recommendedSlot')
     const daysToDeliver = calculateDeliveryDays();
+    console.log(daysToDeliver);
     if (daysToDeliver !== null) {
       const pickupDateValue = document.getElementById('pickupDate').value;
       const pickupDate = new Date(pickupDateValue);
+      console.log(pickupDate);
       const deliveryDate = new Date(pickupDate);
+      console.log(deliveryDate);
       deliveryDate.setDate(pickupDate.getDate() + daysToDeliver);
+      console.log(deliveryDate);
       document.getElementById('DeliveryDatet').value = deliveryDate.toDateString();
     }
   }

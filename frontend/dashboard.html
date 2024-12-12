@@ -9,7 +9,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="js/functions/dashboard-authentication.js"></script>
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Include Leaflet.js for map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+      /* Ensure the map takes the full height of the window or container */
+      #map {
+          height: 400px; /* Fixed height to ensure it fills the space */
+          width: 100%;   /* Full width of the parent container */
+          border-radius: 8px;
+      }
+  </style>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -120,6 +131,7 @@
                         <th>Status</th>
                         <th>Delivery Date</th>
                         <th>Action</th>
+                        <th>Change Slot</th>
                       </tr>
                   </thead>
                   <tbody></tbody>
@@ -182,9 +194,36 @@
       </div>
   </div>
   <div>
-      <label for="senderAddress" class="block text-gray-600">Address</label>
-      <input type="text" id="senderAddress" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Enter address">
+    <label for="senderAddress" class="block text-gray-600">Address</label>
+    <input type="text" id="senderAddress" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="coordinates" readonly>
   </div>
+  <!-- Get Current Location Button -->
+<button id="getLocations" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">Get Current Location</button>
+
+  <script>
+    // Function to get current location based on IP using ip-api service
+    function getCurrentLocations() {
+        fetch('http://ip-api.com/json')
+            .then(response => response.json())
+            .then(data => {
+                let lat = data.lat;
+                let lng = data.lon;
+                
+                // Store latitude and longitude in variables
+                let currentLats = lat;
+                let currentLngs = lng;
+  
+                // Update the input field with current location
+                document.getElementById('senderAddress').value = `${currentLats},${currentLngs}`;
+            })
+            .catch(error => {
+                console.error('Error getting location:', error);
+            });
+    }
+  
+    // Button to get current location
+    document.getElementById('getLocations').addEventListener('click', getCurrentLocations);
+  </script>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
           <label for="senderPincode" class="block text-gray-600">Pincode</label>
@@ -233,10 +272,47 @@
           <input type="text" id="receiverPhone" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Enter phone number">
       </div>
   </div>
-  <div>
-      <label for="receiverAddress" class="block text-gray-600">Address</label>
-      <input type="text" id="receiverAddress" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Enter address">
-  </div>
+ <!-- Address Section -->
+ <div>
+  <label for="receiverAddress" class="block text-gray-600">Address</label>
+  <div id="map" class="mb-4"></div>
+  <input type="text" id="receiverAddress" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="coordinates" readonly>
+</div>
+
+<!-- Store Lat and Lng -->
+<script>
+  let map, marker;
+  let currentLat = null;
+  let currentLng = null;
+
+  // Initialize the map
+  function initMap(lat = 28.650700184483235, lng = 77.17016581445934) {
+      map = L.map('map').setView([lat, lng], 13); // Set default coordinates
+
+      // Add OpenStreetMap tiles to the map
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Add marker
+      marker = L.marker([lat, lng]).addTo(map);
+
+      // Handle map click to update marker and lat/lng input
+      map.on('click', function (e) {
+          const latLng = e.latlng;
+          marker.setLatLng(latLng);
+          currentLat = latLng.lat;
+          currentLng = latLng.lng;
+
+          // Update the input field with a simple location
+          document.getElementById('receiverAddress').value = `${currentLat},${currentLng}`;
+      });
+  }
+  // Initialize map with a default location (London, for example)
+  window.onload = () => {
+      initMap();
+  };
+</script>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
           <label for="receiverPincode" class="block text-gray-600">Pincode</label>

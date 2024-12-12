@@ -14,40 +14,42 @@ if (phoneNumber) {
 }
 
     // Helper function to render order data
-    function renderOrders(orders, tableId) {
-        const tableBody = document.querySelector(`#${tableId} tbody`);
-        tableBody.innerHTML = ''; // Clear the table before rendering
+function renderOrders(orders, tableId) {
+    const tableBody = document.querySelector(`#${tableId} tbody`);
+    tableBody.innerHTML = ''; // Clear the table before rendering
 
-        orders.forEach(order => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${order._id}</td>
-                <td>${order.sender.pincode}</td>
-                <td>${order.receiver.pincode}</td>
-                <td>
-  ${(() => {
-    const statusMap = order.deliveryStatus;
-    if (order.deliveryStatus.delivered === 1) return 'Delivered';
-    if (order.deliveryStatus.out_for_delivery === 1) return 'Out for Delivery';
-    if (order.deliveryStatus.reached_to_nearest_hub === 1) return 'Reached Nearest Hub';
-    if (order.deliveryStatus.in_transit === 1) return 'In Transit';
-    if (order.deliveryStatus.picked_up === 1) return 'Picked Up';
-    if (order.deliveryStatus.ready_for_pickup === 1) return 'Ready for Pickup';
-    return 'Pending';
-  })()}
-</td>
-  
-                <td>${new Date(order.estimatedDeliveryDate).toLocaleDateString()}</td>
-                <td><button class="view-btn" data-order='${JSON.stringify(order)}'>View Details</button></td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
+    orders.forEach(order => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${order._id}</td>
+            <td>${order.sender.pincode}</td>
+            <td>${order.receiver.pincode}</td>
+            <td>
+                ${(() => {
+                    if (order.deliveryStatus.delivered === 1) return 'Delivered';
+                    if (order.deliveryStatus.out_for_delivery === 1) return 'Out for Delivery';
+                    if (order.deliveryStatus.reached_to_nearest_hub === 1) return 'Reached Nearest Hub';
+                    if (order.deliveryStatus.in_transit === 1) return 'In Transit';
+                    if (order.deliveryStatus.picked_up === 1) return 'Picked Up';
+                    if (order.deliveryStatus.ready_for_pickup === 1) return 'Ready for Pickup';
+                    return 'Pending';
+                })()}
+            </td>
+            <td>${new Date(order.estimatedDeliveryDate).toLocaleDateString()}</td>
+            <td>
+                <button class="view-btn book-btn" data-order='${JSON.stringify(order)}'>View Details</button></td>
+            <td>
+                ${tableId === 'orders-for-me' && order.deliveryStatus.reached_to_nearest_hub === 1 ? '<button class="change-slot-btn book-btn" data-order="" + JSON.stringify(order) + " " >Change Slot</button>' : ''}
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
 
-    // Render the tables
-    renderOrders(currentOrders, 'current-orders');
-    renderOrders(pastOrders, 'past-orders');
-    renderOrders(ordersForMe, 'orders-for-me');
+// Render the tables
+renderOrders(currentOrders, 'current-orders');
+renderOrders(pastOrders, 'past-orders');
+renderOrders(ordersForMe, 'orders-for-me');
 
 // Handle click on view details button
 document.querySelectorAll('.view-btn').forEach(button => {
@@ -56,7 +58,7 @@ document.querySelectorAll('.view-btn').forEach(button => {
 
         // Get the order details container
         const detailsContainer = document.querySelector('#order-details');
-        
+
         // Create detailed and styled HTML content for order details
         detailsContainer.innerHTML = `
             <div class="flex justify-between">
@@ -98,7 +100,6 @@ document.querySelectorAll('.view-btn').forEach(button => {
             <div class="flex justify-between">
                 <span class="font-semibold">Delivery Status:</span>
                 <span>${(() => {
-                    const statusMap = order.deliveryStatus;
                     if (order.deliveryStatus.delivered === 1) return 'Delivered';
                     if (order.deliveryStatus.out_for_delivery === 1) return 'Out for Delivery';
                     if (order.deliveryStatus.reached_to_nearest_hub === 1) return 'Reached Nearest Hub';
@@ -106,7 +107,7 @@ document.querySelectorAll('.view-btn').forEach(button => {
                     if (order.deliveryStatus.picked_up === 1) return 'Picked Up';
                     if (order.deliveryStatus.ready_for_pickup === 1) return 'Ready for Pickup';
                     return 'Pending';
-                  })()}</span>
+                })()}</span>
             </div>
         `;
 
@@ -114,6 +115,54 @@ document.querySelectorAll('.view-btn').forEach(button => {
         document.querySelector('#popup').classList.remove('hidden');
     });
 });
+
+// Handle click on change slot button
+document.querySelectorAll('.change-slot-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        // const order = JSON.parse(e.target.getAttribute('data-order'));
+
+        // Show a dropdown for selecting the time slot
+        const detailsContainer = document.querySelector('#order-details');
+        detailsContainer.innerHTML = `
+            <div class="flex flex-col">
+                <span class="font-semibold mb-2">Select a Time Slot:</span>
+                <select id="time-slot" class="mb-4">
+                    <option value="9-12">9 AM - 12 PM</option>
+                    <option value="12-3">12 PM - 3 PM</option>
+                    <option value="3-6">3 PM - 6 PM</option>
+                    <option value="6-9">6 PM - 9 PM</option>
+                </select>
+                <button id="submit-slot" class="bg-blue-500 text-white p-2 rounded">Submit</button>
+            </div>
+        `;
+
+        // Handle slot submission
+        document.querySelector('#submit-slot').addEventListener('click', () => {
+            const selectedSlot = document.querySelector('#time-slot').value;
+
+            // Show confirmation popup
+            detailsContainer.innerHTML = `
+                <div class="flex flex-col">
+                    <span class="font-semibold mb-2">Confirm Time Slot:</span>
+                    <span>${selectedSlot}</span>
+                    <button id="confirm-slot" class="bg-green-500 text-white p-2 rounded mt-4">Confirm</button>
+                </div>`;
+
+            document.querySelector('#confirm-slot').addEventListener('click', () => {
+                // Store the selected time slot in a variable
+                const confirmedSlot = selectedSlot;
+                console.log(`Time slot confirmed: ${confirmedSlot}`);
+
+                // Hide the popup
+                document.querySelector('#popup').classList.add('hidden');
+            });
+        });
+
+        // Display the popup
+        document.querySelector('#popup').classList.remove('hidden');
+    });
+});
+
 
 // Close the popup when the close button is clicked
 document.querySelector('#close-popup').addEventListener('click', () => {
