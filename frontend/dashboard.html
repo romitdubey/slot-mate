@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Dashboard</title>
     <link rel="stylesheet" href="css/user-dashboard.css" />
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="js/functions/dashboard-authentication.js"></script>
@@ -13,7 +17,18 @@
     <!-- Include Leaflet.js for map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Include jsPDF library -->
+    
+
+  
+
     <style>
+        #invoice {
+            display: none;
+        }
+        #qr-code {
+            margin-top: 10px;
+        }
       /* Ensure the map takes the full height of the window or container */
       #map {
           height: 400px; /* Fixed height to ensure it fills the space */
@@ -31,6 +46,7 @@
     />
   </head>
   <body>
+   
     <header class="header">
       <div class="logo">
         <img src="images/mainlogo.jpg" alt="Logo" />
@@ -425,27 +441,17 @@
                 <button class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition" onclick="previousSection('recommendedSlot', 'pickupDetails')">
                     Previous
                 </button>
-                <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" id="submitConsignmentForm" onclick="nextSection('recommended_Slot','successMessage')">
-                    Next
+                <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition" id="submitConsignmentForm">
+                    Submit
                 </button>
             </div>
         </div>
-
-          <!-- Success Message -->
-          <div id="successMessage" class="hidden">
-              <h2 class="text-2xl font-bold text-green-600 text-center">🎉 Consignment Booked!</h2>
-              <p class="text-center mt-2">Your consignment ID: <span id="consignmentId" class="font-bold"></span></p>
-              <div class="text-center mt-4">
-                  <button class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition" onclick="printReceipt()">
-                      Print Receipt
-                  </button>
-              </div>
-          </div>
-      </div>
-  </div>
+        </div>
+      </div>  
   
     <!-- Footer section -->
-
+   <!-- Overlay for the popup -->
+   
     <footer>
       <div class="footer-container">
         <!-- About Us Section -->

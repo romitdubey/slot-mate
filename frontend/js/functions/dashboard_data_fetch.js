@@ -17,7 +17,6 @@ if (phoneNumber) {
 function renderOrders(orders, tableId) {
     const tableBody = document.querySelector(`#${tableId} tbody`);
     tableBody.innerHTML = ''; // Clear the table before rendering
-
     orders.forEach(order => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -55,6 +54,7 @@ renderOrders(ordersForMe, 'orders-for-me');
 document.querySelectorAll('.view-btn').forEach(button => {
     button.addEventListener('click', (e) => {
         const order = JSON.parse(e.target.getAttribute('data-order'));
+        
 
         // Get the order details container
         const detailsContainer = document.querySelector('#order-details');
@@ -109,13 +109,94 @@ document.querySelectorAll('.view-btn').forEach(button => {
                     return 'Pending';
                 })()}</span>
             </div>
+            <div class="text-center mt-4">
+                  <button class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition" dataprint='${order._id}' onclick="showPopups('${order._id}')">
+                      Show QR Code
+                  </button>
+              </div>
+              <div class="popup-overlay" id="overlays" onclick="closePopup()"></div>
+
+   <!-- Popup content -->
+   <div class="popups" id="popups">
+     <button class="close-btns" onclick="closePopup()">Close</button>
+     <div id="qrcode"></div>
+   </div>
+
         `;
 
         // Display the popup
         document.querySelector('#popup').classList.remove('hidden');
     });
+    
+});
+document.querySelectorAll('.printReceipt').forEach(button => {
+    button.addEventListener("click", (e) => {
+        const orders = JSON.parse(e.target.getAttribute('data-order'));
+        // Generate QR Code
+        const qrData = orders._id;
+        generateQRCode(qrData);
+
+        // Display Invoice
+        displayInvoice(orders);
+    });
 });
 
+// Generate QR Code
+function generateQRCode(data) {
+    const qrContainer = document.getElementById("qr-code");
+    qrContainer.innerHTML = ""; // Clear any previous QR code
+    const qrCode = new QRCode(qrContainer, {
+        text: data,
+        width: 128,
+        height: 128,
+    });
+}
+
+// Display Invoice
+function displayInvoice(orders) {
+    const invoiceContainer = document.getElementById("invoice");
+    const receiverName = orders.receiverName;
+    const receiverMobile = orders.receiver.mobileNumber;
+    const estimatedDay = orders.estimatedDeliveryDate;
+    const estimatedPrice = orders.deliveryCost;
+
+    // Populate invoice details
+    invoiceContainer.innerHTML = `
+        <h2>Invoice</h2>
+        <p><strong>Consignment ID:</strong> ${orders._id}</p>
+        <p><strong>Receiver Name:</strong> ${receiverName}</p>
+        <p><strong>Receiver Mobile:</strong> ${receiverMobile}</p>
+        <p><strong>Estimated Delivery Day:</strong> ${estimatedDay}</p>
+        <p><strong>Estimated Price:</strong> ₹${estimatedPrice}</p>
+        <div id="qr-code"></div>
+    `;
+    invoiceContainer.style.display = "block"; // Show the invoice
+    generatePDF(orders._id, receiverName, receiverMobile, estimatedDay, estimatedPrice);
+}
+
+// Generate PDF for Invoice
+function generatePDF(consignmentID, receiverName, receiverMobile, estimatedDay, estimatedPrice) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Add content to the PDF
+    doc.text("Invoice", 10, 10);
+    doc.text(`Consignment ID: ${consignmentID}`, 10, 20);
+    doc.text(`Receiver Name: ${receiverName}`, 10, 30);
+    doc.text(`Receiver Mobile: ${receiverMobile}`, 10, 40);
+    doc.text(`Estimated Delivery Day: ${estimatedDay}`, 10, 50);
+    doc.text(`Estimated Price: ₹${estimatedPrice}`, 10, 60);
+
+    // You can also add the QR Code image as base64 here (if you want to include the QR code in the PDF)
+    const qrCanvas = document.getElementById("qr-code").getElementsByTagName("canvas")[0];
+    if (qrCanvas) {
+        const qrImageData = qrCanvas.toDataURL("image/png");
+        doc.addImage(qrImageData, "PNG", 10, 70, 50, 50);
+    }
+
+    // Save the generated PDF
+    doc.save("invoice.pdf");
+}
 // Handle click on change slot button
 document.querySelectorAll('.change-slot-btn').forEach(button => {
     button.addEventListener('click', (e) => {
@@ -168,4 +249,23 @@ document.querySelectorAll('.change-slot-btn').forEach(button => {
 document.querySelector('#close-popup').addEventListener('click', () => {
     document.querySelector('#popup').classList.add('hidden');
 });
+
 });
+function showPopups(text) {
+    document.getElementById("overlays").style.display = "block";
+    document.getElementById("popups").style.display = "block";
+    
+    // Generate the QR code inside the popup
+    new QRCode(document.getElementById("qrcode"), {
+      text: text,  // You can change this URL
+      width: 128,
+      height: 128
+    });
+  }
+
+  // Function to close the popup
+  function closePopup() {
+    document.getElementById("overlays").style.display = "none";
+    document.getElementById("popups").style.display = "none";
+    document.getElementById("qrcode").innerHTML = ""; // Clear QR code after closing
+  }

@@ -117,7 +117,7 @@ function resetForm() {
         }
     });
 
-    document.getElementById('successMessage').classList.add('hidden');
+    
 }
 
 // Function to validate the pincode (sender or receiver)
@@ -251,3 +251,4 @@ function calculateDistance(pincode1, pincode2) {
         console.error("Error:", error);
     });
 }
+
